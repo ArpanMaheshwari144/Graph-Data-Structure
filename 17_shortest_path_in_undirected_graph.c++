@@ -26,6 +26,7 @@ int main()
     cin >> source;
 
     // Dijkstra's Algorithm begins from here
+    // Dijkstra's Algorithm -> It means source to destination shortest path
     // Declaration of MinHeap
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // pair => (distance, from)
 
