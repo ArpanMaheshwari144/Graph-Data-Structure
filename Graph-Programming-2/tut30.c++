@@ -3,17 +3,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void addEdge(vector<vector<int>> adj[], int u, int v, int wt)
-{
-    vector<int> t1, t2;
-    t1.push_back(v);
-    t1.push_back(wt);
-    adj[u].push_back(t1);
-    t2.push_back(u);
-    t2.push_back(wt);
-    adj[v].push_back(t2);
-}
-
 vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
 {
     set<pair<int, int>> st;
