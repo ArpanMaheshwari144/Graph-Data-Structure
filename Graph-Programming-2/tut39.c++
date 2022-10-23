@@ -1,60 +1,66 @@
-// Prim's Algorithm - Minimum Spanning Tree [https://bit.ly/3ABwwRP]
+// City With the Smallest Number of Neighbors at a Threshold Distance [https://bit.ly/3PoGo5v]
 
 #include <bits/stdc++.h>
 using namespace std;
 
-void addEdge(vector<vector<int>> adj[], int u, int v, int wt)
+int findCity(int n, int m, vector<vector<int>> &edges, int distanceThreshold)
 {
-    vector<int> t1, t2;
-    t1.push_back(v);
-    t1.push_back(wt);
-    adj[u].push_back(t1);
-    t2.push_back(u);
-    t2.push_back(wt);
-    adj[v].push_back(t2);
-}
-
-int spanningTree(int V, vector<vector<int>> adj[])
-{
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    vector<int> vis(V, 0);
-    pq.push({0, 0}); // (weight, node)
-    int sum = 0;
-    while (!pq.empty())
+    vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
+    for (auto it : edges)
     {
-        auto it = pq.top();
-        int node = it.second;
-        int wt = it.first;
-        pq.pop();
+        // undirected graph
+        dist[it[0]][it[1]] = it[2];
+        dist[it[1]][it[0]] = it[2];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        dist[i][i] = 0;
+    }
 
-        if (vis[node] == 1)
+    // floyd-warshall
+    for (int k = 0; k < n; k++)
+    {
+        for (int i = 0; i < n; i++)
         {
-            continue;
-        }
-
-        vis[node] = 1;
-        sum += wt;
-        for (auto it : adj[node])
-        {
-            int adjNode = it[0];
-            int edgeWeight = it[1];
-            if (!vis[adjNode])
+            for (int j = 0; j < n; j++)
             {
-                pq.push({edgeWeight, adjNode});
+                if (dist[i][k] == INT_MAX || dist[k][j] == INT_MAX)
+                {
+                    continue;
+                }
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
             }
         }
     }
-    return sum;
+
+    int countCity = n;
+    int cityNumber = -1;
+    for (int city = 0; city < n; city++)
+    {
+        int count = 0;
+        for (int adjCity = 0; adjCity < n; adjCity++)
+        {
+            if (dist[city][adjCity] <= distanceThreshold)
+            {
+                count++;
+            }
+        }
+        if (count <= countCity)
+        {
+            countCity = count;
+            cityNumber = city;
+        }
+    }
+    return cityNumber;
 }
 
 int main()
 {
-    int V = 3;
-    vector<vector<int>> adj[V];
-    addEdge(adj, 0, 1, 5);
-    addEdge(adj, 1, 2, 3);
-    addEdge(adj, 0, 2, 1);
-    cout << spanningTree(V, adj);
+
+    int n = 4, m = 4, dist = 4;
+    vector<vector<int>> adj = {{0, 1, 3}, {1, 2, 1}, {1, 3, 4}, {2, 3, 1}};
+
+    cout << "City Number: " << findCity(n, m, adj, dist) << "\n";
 
     return 0;
 }
