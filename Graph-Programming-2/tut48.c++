@@ -1,4 +1,4 @@
-//
+// Maximum Stone Removal [https://bit.ly/3QHZuE6]
 
 #include <bits/stdc++.h>
 using namespace std;
