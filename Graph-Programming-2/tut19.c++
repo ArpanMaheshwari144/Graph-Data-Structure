@@ -46,11 +46,14 @@ bool isCyclic(int V, vector<int> adj[])
         }
     }
 
+    // If the topo sort traverses all the edges in the graph this means there is no cycle
     if (count == V)
     {
-        // if toposort array size == number of elements in graph the it is a DAG
+        // if toposort array size == number of elements in the graph then it is a DAG
         return false;
     }
+
+    // If the topo sort did not traverses all the edges in the graph this means there is a cycle
     return true;
 }
 
