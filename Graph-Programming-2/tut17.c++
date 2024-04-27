@@ -1,5 +1,5 @@
 // Topological sort using DFS [https://bit.ly/3PvBfsm]
-
+// Topo sort is only valid for Directed Acyclic Graph
 #include <bits/stdc++.h>
 using namespace std;
 
