@@ -5,6 +5,7 @@ using namespace std;
 
 vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
 {
+    // set stores everything in the ascending order
     set<pair<int, int>> st;
     vector<int> dist(V, 1e9);
     st.insert({0, S}); // (dist, node)
@@ -14,13 +15,14 @@ vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
         auto it = *(st.begin());
         int dis = it.first;
         int node = it.second;
-        st.erase(it);
+        st.erase(it); // similar to pop operation
 
         for (auto it : adj[node])
         {
             int adjNode = it[0];
             int edgeWeight = it[1];
 
+            // we found someone better distance than the previous one so we have to remove the previous one and add the better one
             if (dis + edgeWeight < dist[adjNode])
             {
                 // erase if it exists
