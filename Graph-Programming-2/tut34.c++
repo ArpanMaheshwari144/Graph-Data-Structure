@@ -11,7 +11,14 @@ int CheapestFLight(int n, vector<vector<int>> &flights, int src, int dst, int K)
         adj[it[0]].push_back({it[1], it[2]});
     }
 
-    // (stops, (nodes, cost))
+    /*
+    we can use the queue as well bcoz stops are increasing by + 1 so it will be constant and no need for sorting so we do not need 
+    priority_queue. So the queue will automatically give minimum stops.
+    we have to store minimum stops, not distance bcoz according to the question in min. stops we have to reach the distance if we store
+    the shortest distance so it will not give the correct answer.
+    */
+    
+    // (stops, (nodes, cost/distance))
     queue<pair<int, pair<int, int>>> q;
     q.push({0, {src, 0}});
     vector<int> dist(n, 1e9);
