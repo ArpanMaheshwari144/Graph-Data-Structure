@@ -12,7 +12,9 @@ int countPaths(int n, vector<vector<int>> &roads)
         adj[it[1]].push_back({it[0], it[2]});
     }
 
+    // {dist, node}
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    // timeArray is treated as distance array as well
     vector<int> timeArray(n, 1e9), ways(n, 0);
     timeArray[0] = 0;
     ways[0] = 1;
@@ -29,15 +31,19 @@ int countPaths(int n, vector<vector<int>> &roads)
             int adjNode = it.first;
             int edgeTime = it.second;
 
-            // this is the first time we have reached this node in short distance
+            //This is the first time we have reached this node in a short distance
             if (timeToReach + edgeTime < timeArray[adjNode])
             {
                 timeArray[adjNode] = timeToReach + edgeTime;
                 pq.push({timeArray[adjNode], adjNode});
+                /* if the time to reach that node is less than the time we have right now then the 
+                number of ways is the same for that current node */
                 ways[adjNode] = ways[node];
             }
             else if (timeToReach + edgeTime == timeArray[adjNode])
             {
+                /* if the time to reach that node is equal to the time we have right now then the 
+                number of ways is the addition of adjacent node and current node */
                 ways[adjNode] = (ways[adjNode] + ways[node]) % mod;
             }
         }
