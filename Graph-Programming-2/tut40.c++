@@ -1,5 +1,8 @@
 // Prim's Algorithm - Minimum Spanning Tree [https://bit.ly/3ABwwRP]
-
+/*
+Spanning Tree:- A tree in which we have N nodes and N-1 edges and all nodes are reachable from each other.
+Minimum Spanning Tree:- A tree in which we have N nodes and N-1 edges and all nodes are reachable from each other and if we do the sum of its weight it will give a minimum sum.
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
