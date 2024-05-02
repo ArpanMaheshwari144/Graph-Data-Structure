@@ -3,6 +3,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*
+In Bellman Ford we always do n-1(n is the number of nodes) relaxation but why?
+Bcoz for every relaxation:
+If we do 1st time relaxation the 0th node answers its adjacent node
+and then the 0th adjacent node answers its adjacent nodes and so on...
+*/
+/*
+if we do n-1 relaxation and the distance array is reduced on nth relaxation as well this means there is negative cycle
+*/
 vector<int> bellmanFord(int V, vector<vector<int>> &edges, int S)
 {
     vector<int> dist(V, 1e8);
