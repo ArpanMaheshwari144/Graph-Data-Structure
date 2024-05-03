@@ -75,11 +75,21 @@ public:
                 int adjNode = it[0];
                 int wt = it[1];
                 int node = i;
+
+                /* Here if the edge is:
+                1 - 2, wt = 5
+                2 - 1, wt = 5
+
+                This means it will push the edges two times:
+                5, {1, 2}
+                5, {2, 1}
+                */
                 edges.push_back({wt, {node, adjNode}});
             }
         }
 
         DisjointSet ds(V);
+        // sort acc to weight
         sort(edges.begin(), edges.end());
         int mstWt = 0;
         for (auto it : edges)
@@ -87,6 +97,7 @@ public:
             int wt = it.first;
             int u = it.second.first;
             int v = it.second.second;
+            // if they do not belong to the same component
             if (ds.findUltimateParent(u) != ds.findUltimateParent(v))
             {
                 mstWt += wt;
