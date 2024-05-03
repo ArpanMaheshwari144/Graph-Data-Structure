@@ -87,6 +87,8 @@ public:
             int u = it[0];
             int v = it[1];
 
+            // If we have u and v edge and both parents are the same this means we have one extra edge
+            // If they have the same parent it means they are already connected so we have one extra edge
             if (ds.findUltimateParent(u) == ds.findUltimateParent(v))
             {
                 countExtraEdges++;
@@ -105,6 +107,14 @@ public:
                 countComponents++;
             }
         }
+
+        /*
+        If we have 5 components like this:
+            1 2 3 4 5
+        so in my many edges, we can connect these components:
+        1 - 2 - 3 - 4 - 5 so we require 4 edges to connect five components
+        which means if we have n components we require n-1 edges.
+        */
         int ans = countComponents - 1;
         if (countExtraEdges >= ans)
         {
