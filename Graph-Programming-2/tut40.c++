@@ -35,6 +35,7 @@ int spanningTree(int V, vector<vector<int>> adj[])
             continue;
         }
 
+        // added to the MST
         vis[node] = 1;
         sum += wt;
         for (auto it : adj[node])
