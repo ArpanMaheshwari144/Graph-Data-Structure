@@ -63,6 +63,7 @@ public:
         {
             for (int j = 0; j < V; j++)
             {
+                // If there is one this means there is an edge between i & j and we attach i & j
                 if (adj[i][j] == 1)
                 {
                     ds.unionByRank(i, j);
@@ -70,6 +71,27 @@ public:
             }
         }
 
+        /*
+        1-2-3 4-5 6-7 Here we have 3 provinces
+        if we take the parents of everyone it will be like this:
+
+         1      4    6
+        / \     |    |
+       2   3    5    7
+
+        parent[1] = 1
+        parent[2] = 1
+        parent[3] = 1
+
+        parent[4] = 4
+        parent[5] = 4
+
+        parent[6] = 6
+        parent[7] = 6
+
+        so here we can easily see that if we broke this into something like this we can see that if we find the 
+        the ultimate parent of 1 & 2 & 3 = 1, for 4 & 5 = 4 and for 6 & 7 = 6
+        */
         int count = 0;
         for (int i = 0; i < V; i++)
         {
