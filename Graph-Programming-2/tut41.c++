@@ -27,6 +27,7 @@ public:
         {
             return node;
         }
+        // Path Compression
         return parent[node] = findUltimateParent(parent[node]);
     }
 
@@ -39,14 +40,21 @@ public:
             return;
         }
 
+        /* We attached a smaller to a bigger one bcoz in the graph height will not increase and the travel time for finding the parent 
+        will also decrease */
+        // If U is less than V then U is attached to V
+        // smaller is attached to the bigger one so in the rank array there is no change
         if (rank[ultimateParentU] < rank[ultimateParentV])
         {
             parent[ultimateParentU] = ultimateParentV;
         }
+        // If V is less than U then V is attached to U
+        // smaller is attached to the bigger one so in the rank array there is no change
         else if (rank[ultimateParentV] < rank[ultimateParentU])
         {
             parent[ultimateParentV] = ultimateParentU;
         }
+        // If both ranks are equal if we attached to anyone either case rank also increases
         else
         {
             parent[ultimateParentV] = ultimateParentU;
