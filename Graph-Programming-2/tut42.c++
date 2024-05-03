@@ -80,8 +80,9 @@ public:
                 1 - 2, wt = 5
 
                 This means it will push the edges two times:
-                5, {1, 2} 1 - 2 with wt = 5
-                5, {2, 1} 2 - 1 with wt = 5    
+                5, {1, 2} 1 - 2 with wt = 5 here 2's ultimate parent is 1
+                5, {2, 1} 2 - 1 with wt = 5 here 1's ultimate parent is 2
+                but we are using a disjoint set so it will treat this as one
                 */
                 edges.push_back({wt, {node, adjNode}});
             }
