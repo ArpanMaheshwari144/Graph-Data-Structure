@@ -78,11 +78,10 @@ public:
 
                 /* Here if the edge is:
                 1 - 2, wt = 5
-                2 - 1, wt = 5
 
                 This means it will push the edges two times:
-                5, {1, 2}
-                5, {2, 1}
+                5, {1, 2} 1 - 2 with wt = 5
+                5, {2, 1} 2 - 1 with wt = 5    
                 */
                 edges.push_back({wt, {node, adjNode}});
             }
@@ -97,7 +96,7 @@ public:
             int wt = it.first;
             int u = it.second.first;
             int v = it.second.second;
-            // if they do not belong to the same component
+            // if there parents are not same
             if (ds.findUltimateParent(u) != ds.findUltimateParent(v))
             {
                 mstWt += wt;
