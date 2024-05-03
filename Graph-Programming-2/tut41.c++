@@ -71,11 +71,13 @@ public:
             return;
         }
 
+        // If U size is less than V then U is attached to V and V size increases by how many nodes we are attached
         if (size[ultimateParentU] < size[ultimateParentV])
         {
             parent[ultimateParentU] = ultimateParentV;
             size[ultimateParentV] += size[ultimateParentU];
         }
+        // If V size is less than U then V is attached to U and U size increases by how many nodes we are attached
         else
         {
             parent[ultimateParentV] = ultimateParentU;
