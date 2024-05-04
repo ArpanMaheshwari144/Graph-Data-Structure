@@ -86,13 +86,17 @@ public:
         unordered_map<string, int> mapMailNode;
         for (int i = 0; i < n; i++)
         {
+            // j starts from 1 bcoz from 1st index mail array starts
             for (int j = 1; j < accounts[i].size(); j++)
             {
                 string mail = accounts[i][j];
+                // If map does not contain the mail
                 if (mapMailNode.find(mail) == mapMailNode.end())
                 {
                     mapMailNode[mail] = i;
                 }
+                /* If the mail is already there then we have to union that index(i current node) and that index 
+                which is already present in the mapMailNode */
                 else
                 {
                     ds.unionBySize(i, mapMailNode[mail]);
@@ -100,6 +104,9 @@ public:
             }
         }
 
+        /*
+        Put all the emails that have the same ultimate parent
+        */
         vector<string> mergeMail[n];
         for (auto it : mapMailNode)
         {
@@ -117,7 +124,8 @@ public:
             }
             sort(mergeMail[i].begin(), mergeMail[i].end());
             vector<string> temp;
-            temp.push_back(accounts[i][0]);
+            temp.push_back(accounts[i][0]); // First we push the name
+            // Then we have to push all the emails
             for (auto it : mergeMail[i])
             {
                 temp.push_back(it);
