@@ -101,20 +101,23 @@ public:
                 continue;
             }
             vis[row][col] = 1;
-            count++;
+            count++; // count this is an individual island
 
             int dr[] = {-1, 0, 1, 0};
             int dc[] = {0, 1, 0, -1};
+            // traverse in all four directions
             for (int index = 0; index < 4; index++)
             {
                 int adjR = row + dr[index];
                 int adjC = col + dc[index];
                 if (isValid(adjR, adjC, n, m))
                 {
+                    // we connect when it should be an island
                     if (vis[adjR][adjC] == 1)
                     {
                         int nodeNumber = row * m + col; // calculating the node number cell in the 2-D Matrix
                         int adjNodeNumber = adjR * m + adjC;
+                        // If both the parents are different so we have to connect and reduce the count
                         if (ds.findUltimateParent(nodeNumber) != ds.findUltimateParent(adjNodeNumber))
                         {
                             count--;
