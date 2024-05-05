@@ -89,7 +89,7 @@ public:
         int n = grid.size();
         DisjointSet ds(n * n);
 
-        // connecting the components
+        // Connecting the components
         for (int row = 0; row < n; row++)
         {
             for (int col = 0; col < n; col++)
@@ -114,11 +114,13 @@ public:
             }
         }
 
+        // Trying to convert the 0's to 1 and making the large component
         int mx = 0;
         for (int row = 0; row < n; row++)
         {
             for (int col = 0; col < n; col++)
             {
+                // If we encounter the 1 we do not convert this
                 if (grid[row][col] == 1)
                 {
                     continue;
@@ -132,8 +134,11 @@ public:
                     int newCol = col + dc[index];
                     if (isValid(newRow, newCol, n))
                     {
+                        // If the new row and new col are valid it will be 1 otherwise it will never be a component
                         if (grid[newRow][newCol] == 1)
                         {
+                            // (newRow * n + newCol) for this cell number give the ultimate parent
+                            // get all the components which we can connect
                             components.insert(ds.findUltimateParent(newRow * n + newCol));
                         }
                     }
@@ -144,11 +149,11 @@ public:
                 {
                     sizeTotal += ds.size[it];
                 }
-                mx = max(mx, sizeTotal + 1); // add one for that we convert a 0 to 1
+                mx = max(mx, sizeTotal + 1); // + 1  for we convert a 0 to 1
             }
         }
 
-        // if the cell has all ones
+        // If the cell has all ones
         for (int cellNo = 0; cellNo < n * n; cellNo++)
         {
             mx = max(mx, ds.size[ds.findUltimateParent(cellNo)]);
