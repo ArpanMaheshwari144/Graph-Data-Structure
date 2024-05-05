@@ -138,7 +138,10 @@ public:
                         if (grid[newRow][newCol] == 1)
                         {
                             // (newRow * n + newCol) for this cell number give the ultimate parent
-                            // get all the components which we can connect
+                            // Get all the components that we can connect
+                            /* In the set we only store the ultimate parent of the cell number bcoz if we store the sizes directly 
+                            so it will give the wrong answer */
+                            // Why set bcoz if we encounter two same parent of the components
                             components.insert(ds.findUltimateParent(newRow * n + newCol));
                         }
                     }
