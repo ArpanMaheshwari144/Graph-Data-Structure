@@ -91,17 +91,39 @@ public:
             maxCol = max(maxCol, it[1]);
         }
 
+        // Here maxRow = 2 and maxCol = 2 ds(2+2+1) => 0 1 2 3 4 5
         DisjointSet ds(maxRow + maxCol + 1);
         unordered_map<int, int> stoneNodes;
         for (auto it : stones)
         {
             int nodeRow = it[0];
             int nodeCol = it[1] + maxRow + 1;
+
+            /*
+            here nodeRow and nodeCol values are changed according to the stones array coordinates
+            0(nodeRow) 3(nodeCol) 0 is ultimate parent of 3
+            0(nodeRow) 4(nodeCol) 0 is ultimate parent of 4
+            1(nodeRow) 3(nodeCol) 1 is ultimate parent of 3
+            1(nodeRow) 5(nodeCol) 1 is ultimate parent of 5
+            2(nodeRow) 4(nodeCol) 2 is ultimate parent of 4
+            2(nodeRow) 5(nodeCol) 2 is ultimate parent of 5
+            */
+            
+            // cout<<nodeRow<<" "<<nodeCol<<endl;
+            
+            /*
+                            0
+                        \ \ \ \ \
+                        5  4 3 2 1
+            Here is when we apply unionBySize and the loop is run successfully 0 is the ultimate parent of all the nodes
+            */
+            
             ds.unionBySize(nodeRow, nodeCol);
             stoneNodes[nodeRow] = 1;
             stoneNodes[nodeCol] = 1;
         }
 
+        // here we count how many ultimate parents there are
         // counting the connected components
         int count = 0; // (number of components)
         for (auto it : stoneNodes)
@@ -112,6 +134,7 @@ public:
                 count++;
             }
         }
+        
         /*
         If we have n stones:
         Component1  Component2  Component3  Component4
@@ -122,6 +145,7 @@ public:
         from equation 1
         n - (number of components)
         */
+        // total nodes - count of ultimate parents
         return n - count;
     }
 };
