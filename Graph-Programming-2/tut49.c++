@@ -10,6 +10,9 @@ void addEdge(vector<int> adj[], int u, int v)
     adj[u].push_back(v);
 }
 
+/*
+This will sort the edges according to their finishing time which means a node that is encountered last will push to the stack first
+*/
 void dfs(int node, vector<int> &vis, vector<int> adj[], stack<int> &st)
 {
     vis[node] = 1;
@@ -47,6 +50,7 @@ int kosaraju(int V, vector<int> adj[])
         }
     }
 
+    // Reversing the graph
     vector<int> adjT[V];
     for (int i = 0; i < V; i++)
     {
@@ -57,6 +61,7 @@ int kosaraju(int V, vector<int> adj[])
         }
     }
 
+    // Do the DFS on the reversed graph
     int scc = 0;
     while (!st.empty())
     {
