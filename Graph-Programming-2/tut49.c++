@@ -11,7 +11,10 @@ void addEdge(vector<int> adj[], int u, int v)
 }
 
 /*
-This will sort the edges according to their finishing time which means a node that is encountered last will push to the stack first
+Suppose we have 4 Strongly Connected Components(SCC):
+scc1 -> scc2 -> scc3 -> scc4 (each scc is connected to another scc for sure and that is obvious)
+so we have to figure out which node lies in the scc1 we did the following:
+Step 1 -> This will sort the edges according to their finishing time which means a node that is encountered last will push to the stack first
 */
 void dfs(int node, vector<int> &vis, vector<int> adj[], stack<int> &st)
 {
@@ -50,6 +53,8 @@ int kosaraju(int V, vector<int> adj[])
         }
     }
 
+    /* These scc are connected by each other so we have to stop while traversing so we cannot go to other scc's:
+    Step 2 -> Reverse the Graph */
     // Reversing the graph
     vector<int> adjT[V];
     for (int i = 0; i < V; i++)
@@ -61,6 +66,7 @@ int kosaraju(int V, vector<int> adj[])
         }
     }
 
+    // Step 3 -> To find out all the nodes we will do simple DFS on reversed graph
     // Do the DFS on the reversed graph
     int scc = 0;
     while (!st.empty())
