@@ -1,4 +1,5 @@
 // Maximum Stone Removal [https://bit.ly/3QHZuE6]
+// Question -> [[0 0] ,[ 0 1], [1 0] ,[1 2] ,[2 1] ,[2 2]] Gives the co-ordinates of the matrix
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -81,53 +82,47 @@ class Solution
 public:
     int maxRemove(vector<vector<int>> &stones, int n)
     {
-        int maxRow=0;
-        int maxCol=0;
-        for(auto it : stones){
+        // Here we are finding the dimensions of the matrix 
+        int maxRow = 0;
+        int maxCol = 0;
+        for (auto it : stones)
+        {
             maxRow = max(maxRow, it[0]);
             maxCol = max(maxCol, it[1]);
         }
-        
-        // Here maxRow = 2 and maxCol = 2 ds(2+2+1) => 0 1 2 3 4 5
+
         DisjointSet ds(maxRow + maxCol + 1);
         unordered_map<int, int> stoneNodes;
-        for(auto it : stones){
+        for (auto it : stones)
+        {
             int nodeRow = it[0];
             int nodeCol = it[1] + maxRow + 1;
-            /*
-            here nodeRow and nodeCol values are changed according to the stones array coordinates
-            0(nodeRow) 3(nodeCol) 0 is ultimate parent of 3
-            0(nodeRow) 4(nodeCol) 0 is ultimate parent of 4
-            1(nodeRow) 3(nodeCol) 1 is ultimate parent of 3
-            1(nodeRow) 5(nodeCol) 1 is ultimate parent of 5
-            2(nodeRow) 4(nodeCol) 2 is ultimate parent of 4
-            2(nodeRow) 5(nodeCol) 2 is ultimate parent of 5
-            */
-            
-            // cout<<nodeRow<<" "<<nodeCol<<endl;
-            
-            /*
-                            0
-                        \ \ \ \ \
-                        5  4 3 2 1
-            Here is when we apply unionBySize and the loop is run successfully 0 is the ultimate parent of all the nodes
-            */ 
-            
             ds.unionBySize(nodeRow, nodeCol);
-            stoneNodes[nodeRow]=1;
-            stoneNodes[nodeCol]=1;
+            stoneNodes[nodeRow] = 1;
+            stoneNodes[nodeCol] = 1;
         }
-        
-        // here we count how many ultimate parents there are
-        int count=0;
-        for(auto it : stoneNodes){
-            if(ds.findUltimateParent(it.first) == it.first){
+
+        // counting the connected components
+        int count = 0; // (number of components)
+        for (auto it : stoneNodes)
+        {
+            // counting the number of parents of the current node(means the bosses)
+            if (ds.findUltimateParent(it.first) == it.first)
+            {
                 count++;
             }
         }
-        
-        // total nodes - count of ultimate parents
-        return n-count;
+        /*
+        If we have n stones:
+        Component1  Component2  Component3  Component4
+        x1 stones   x2 stones   x3 stones  x4 stones ===> x1 + x2 + x3 + x4 + ....... + = n ----- equation 1
+        In 1 component we remove all the stones apart from the 1 stone(from the same row and the same col as the question said)
+        (x1-1) + (x2-1) + (x3-1) + (x4-1) + .....
+        (x1 + x2 + x3 + x4) - (1 + 1 + 1 + 1 + 1)
+        from equation 1
+        n - (number of components)
+        */
+        return n - count;
     }
 };
 
