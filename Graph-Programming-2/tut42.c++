@@ -94,6 +94,7 @@ public:
         int mstWt = 0;
         for (auto it : edges)
         {
+            // We sort the edges array so small weights always come first
             int wt = it.first;
             int u = it.second.first;
             int v = it.second.second;
