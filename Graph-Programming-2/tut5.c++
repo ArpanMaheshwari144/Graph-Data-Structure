@@ -16,7 +16,8 @@ void dfs(int row, int col, vector<vector<int>> &ans, vector<vector<int>> &image,
         int nrow = row + delRow[i];
         int ncol = col + delCol[i];
 
-        // check for valid coordinate then check for same initial color and unvisited pixel
+        // Check for valid coordinates then check for the same initial color and unvisited pixel
+        // checking if ans matrix does not have a newColor if it has a newColor so we do not do anything
         if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && image[nrow][ncol] == iniColor && ans[nrow][ncol] != newColor)
         {
             dfs(nrow, ncol, ans, image, newColor, delRow, delCol, iniColor);
@@ -26,11 +27,11 @@ void dfs(int row, int col, vector<vector<int>> &ans, vector<vector<int>> &image,
 
 vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
 {
-    // get initial color
+    // Get the initial color
     int iniColor = image[sr][sc];
     vector<vector<int>> ans = image;
 
-    // delta row and delta column for neighbours
+    // delta row and delta column for neighbors
     int delRow[] = {-1, 0, +1, 0};
     int delCol[] = {0, +1, 0, -1};
     dfs(sr, sc, ans, image, newColor, delRow, delCol, iniColor);
