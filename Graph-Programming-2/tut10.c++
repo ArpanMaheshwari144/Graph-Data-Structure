@@ -3,6 +3,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*
+Here is what we are doing if it is present in the boundary and if they connected to the boundary so we mark them visited since we can't change it
+*/   
 void dfs(int row, int col, vector<vector<int>> &vis, vector<vector<char>> &mat, int delrow[], int delcol[])
 {
     vis[row][col] = 1;
