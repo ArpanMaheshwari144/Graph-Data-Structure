@@ -16,9 +16,11 @@ int numberOfEnclaves(vector<vector<int>> &grid)
         for (int j = 0; j < m; j++)
         {
             // first row, first col, last row, last col
+            // 
             if (i == 0 || j == 0 || i == n - 1 || j == m - 1)
             {
-                // if it is a land then store it in queue
+                // if it is land then store it in the queue
+                // We are storing all the boundaries 1 in the queue and mark them as visited
                 if (grid[i][j] == 1)
                 {
                     q.push({i, j});
@@ -43,7 +45,8 @@ int numberOfEnclaves(vector<vector<int>> &grid)
             int nrow = row + delrow[i];
             int ncol = col + delcol[i];
 
-            // check for valid coordinates and for land cell
+            // check for valid coordinates and land cell
+            //  Only those cells that are present in the boundary or in the boundary path are visited
             if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1)
             {
                 q.push({nrow, ncol});
@@ -52,6 +55,7 @@ int numberOfEnclaves(vector<vector<int>> &grid)
         }
     }
 
+    // Here we count only those cells which are not visited(which means they are not present in the boundary or boundary path)
     int cnt = 0;
     for (int i = 0; i < n; i++)
     {
