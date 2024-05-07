@@ -19,9 +19,8 @@ int minimumMultiplications(vector<int> &arr, int start, int end)
         for (auto it : arr)
         {
             // Multiply the current number and queue number and see that it is smaller than we stored in the dist array
-            // as we in increase the steps by one bcoz we did multiply
-            int num = (it * node) % 100000;
-            if (steps + 1 < dist[num])
+            int num = (it * node) % 100000; 
+            if (steps + 1 < dist[num]) // as we increase the steps by one bcoz we did multiply
             {
                 dist[num] = steps + 1;
                 if (num == end)
