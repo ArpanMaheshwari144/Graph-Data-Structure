@@ -37,7 +37,7 @@ int findCity(int n, int m, vector<vector<int>> &edges, int distanceThreshold)
     int cityNumber = -1;
     for (int city = 0; city < n; city++)
     {
-        int count = 0; // for every city we have a counter
+        int count = 0; // for every city we have to count
         for (int adjCity = 0; adjCity < n; adjCity++)
         {
             if (dist[city][adjCity] <= distanceThreshold)
