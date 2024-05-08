@@ -16,7 +16,6 @@ int numberOfEnclaves(vector<vector<int>> &grid)
         for (int j = 0; j < m; j++)
         {
             // first row, first col, last row, last col
-            // 
             if (i == 0 || j == 0 || i == n - 1 || j == m - 1)
             {
                 // if it is land then store it in the queue
