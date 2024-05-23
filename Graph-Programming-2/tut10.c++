@@ -66,8 +66,8 @@ vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
         }
     }
 
-    // if unvisited O then convert to X
-    // If it is unvisited till here that means it is present in the boundary and we cannot change it(as the question said)
+    // If unvisited O then convert to X
+    // If it is unvisited till here that means it is not present in the boundary and we can change it(as the question said)
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
